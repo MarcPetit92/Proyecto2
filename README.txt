@@ -1,3 +1,3 @@
-A Pen created at CodePen.io. You can find this one at http://codepen.io/anon/pen/wowLMJ.
+Proyecto Iridium.
 
- Simple HTML5/CSS3 login form that also works as registration form. You can tweak this form further to use it as part of your web app, website or anything else. 
+Página web con login a una intranet en la cual se mostrará la disponibilidad de los recursos y si el usuario desea reservar un recurso podrá hacerlo con su login.
