@@ -8,12 +8,8 @@ extract($_REQUEST);
 <head>
   <meta charset="UTF-8">
   <title>Flat HTML5/CSS3 Login Form</title>
-  
-  
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
+  <link rel="stylesheet" href="css/style.css">
+  <script type="text/javascript" src="js/validacion.js"> </script>
 </head>
 
 <body>
@@ -31,9 +27,9 @@ extract($_REQUEST);
   echo "<font color="."red"."><b>Datos incorrectos</b></font>  </br></br>";
   }
   ?>
-    <form name="Login" action="intranet.proc.php" class="login-form">
-      <input type="text" name="usu_alias" placeholder="usuario"/>
-      <input type="password" name="usu_pass" placeholder="contraseña"/>
+    <form name="Login" action="intranet.proc.php" class="login-form" onsubmit="return validar();">
+      <input type="text" name="usu_alias" placeholder="usuario" onfocus="document.Login.usu_alias.style.color='';" />
+      <input type="password" name="usu_pass" placeholder="contraseña" onfocus="document.Login.usu_pass.style.color='';"/>
       <button>Entrar</button>
    
     </form>
