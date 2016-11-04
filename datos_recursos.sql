@@ -1,4 +1,5 @@
 /*tipo*/
+INSERT INTO `tbl_tipo_recurso` (`tip_id`, `tip_nombre`) VALUES (NULL, 'Aula Teoria');
 INSERT INTO `tbl_tipo_recurso` (`tip_id`, `tip_nombre`) VALUES (NULL, 'Aula Informatica');
 INSERT INTO `tbl_tipo_recurso` (`tip_id`, `tip_nombre`) VALUES (NULL, 'Despacho');
 INSERT INTO `tbl_tipo_recurso` (`tip_id`, `tip_nombre`) VALUES (NULL, 'Sala Reuniones');
