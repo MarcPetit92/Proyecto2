@@ -4,6 +4,7 @@
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
+
 }
 .form {
   position: relative;
@@ -128,5 +129,31 @@ body {
 .nodisponible{
   color: red;
   font-family: "Roboto";
+}
+
+.historial{
+
+   background: white;
+  font-family: "Roboto";
+  float: left;
+  z-index: 1;
+  
+  
+
+  margin:  25px;
+  padding: 25px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+}
+
+.filtro {
+  width: 200px;
+  height: 100%;
+  padding: 8% 0 0;
+  margin: auto;
+  border: solid;
 }
 

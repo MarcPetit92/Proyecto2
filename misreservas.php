@@ -61,8 +61,7 @@
  
  <?php
 
-    $sql2 = "SELECT * FROM tbl_reserva WHERE usu_id = ".$usu_id;
-
+    $sql2 = "SELECT * FROM `tbl_reserva` WHERE (`res_fecha_fin` IS NULL OR `res_hora_fin` IS NULL ) AND (`usu_id` = ".$usu_id.")";
 
     $reservas = mysqli_query($conexion, $sql2);  
     //echo $sql;
@@ -86,7 +85,11 @@
         echo "Hora de la reserva: " .$reserva['res_hora_ini']."</br>";
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
       
+        echo"</br> <a href="."devolucion.proc.php?res_id=".$reserva['res_id']."&usu_id=".$usu_id."&rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Devolver"."</div></a> ";
         echo "</div>";
+
+
+
        
       }
     }
@@ -95,7 +98,43 @@
       echo "No tienes ninguna reserva";
     } 
 
+
+
+
 ?>
+
+<div class="historial">
+<table border>
+<label>Historial de reservas</label>
+
+  <?php
+
+        $sql6 ="SELECT res_fecha_ini, res_hora_ini, rec_nombre  FROM `tbl_reserva`, `tbl_recursos` WHERE (".$usu_id." = tbl_reserva.usu_id )AND (tbl_recursos.rec_id = tbl_reserva.rec_id)";
+
+        
+        $historial = mysqli_query($conexion, $sql6);  
+        if(mysqli_num_rows($historial)>0){
+          //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
+          while($elementos = mysqli_fetch_array($historial)){
+            
+            echo"<tr>";
+            echo"<td>".$elementos['res_fecha_ini']."</td>";
+            echo"<td>".$elementos['res_hora_ini']."</td>";
+            echo "<td>".$elementos['rec_nombre']."</td>";
+            //aqui voy a motrar el nombre
+
+            echo "</tr>";
+          }
+
+
+        }else{
+
+        }
+
+  ?>
+  
+</table>
+</div>
 
 </body>
 </html>

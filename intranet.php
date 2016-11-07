@@ -40,12 +40,27 @@
   ?>
   </div>
   </div>
+<div class="filtro">
 
- 
+	<form action="intranet.php" method="GET" >
+
+				<input type="radio" name="rec_disponibilidad" value="0"> Mostrar no disponibles<br>
+  				<input type="radio" name="rec_disponibilidad" value="1"> Mostrar disponibles<br>
+  				<input type="radio" name="rec_disponibilidad" value=""> Mostrar todo<br>
+				<input type="submit" value="Filtrar">
+			
+	</form>
+ </div>
+
  <?php
 
-    $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
+if ($rec_disponibilidad != "") {
+$sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ". $rec_disponibilidad."= tbl_recursos.rec_disponibilidad";
+}else{
+	$sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
 
+}
+    
 
     $recursos = mysqli_query($conexion, $sql);  
     //echo $sql;
@@ -59,7 +74,7 @@
 
         echo "Tipo: " .$recurso['tip_nombre']."</br>";
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
-       if ($recurso['rec_disponibilidad'] == 1){
+       if ($recurso['rec_disponibilidad'] == '1'){
 
             echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
 
