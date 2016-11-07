@@ -26,7 +26,7 @@
 				if(($usu_alias == $usuario['usu_alias']) && ($usu_pass == $usuario['usu_pass']  ) ){
 
 		
-       				header("location: intranet.php?usu_nombre=".$usuario['usu_nombre']."&usu_apellido=".$usuario['usu_apellido']);
+       				header("location: intranet.php?usu_nombre=".$usuario['usu_nombre']."&usu_apellido=".$usuario['usu_apellido']."&usu_id=".$usuario['usu_id']);
 
         
        				 //echo "Nombre: " . $usuario['usu_alias'] . "<br/>";

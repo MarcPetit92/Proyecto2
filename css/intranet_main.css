@@ -106,7 +106,7 @@
 
 		.izq{
 			float: left;
-			width: 75%;		
+			width: 55%;		
 		}
 
 		.der{
@@ -135,3 +135,34 @@
 		}
 		
 
+		.btn_reserva{
+
+			background: #BCCE98;
+			color: black;
+			width: 35%;
+			margin-left: 30%;
+
+		}
+		.btn_reserva:hover, .btn_reserva:active, .btn_reserva:focus{
+
+			background: #43A047;
+			color: white;
+		}
+
+		.reserva{
+
+				  background: white;
+				  font-family: "Roboto";
+				  float: left;
+				  z-index: 1;
+				  
+				  width: 250px;
+				  height: 100px;
+
+				  margin:  25px;
+				  padding: 25px;
+				  text-align: center;
+				  align-items: center;
+
+				  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+		}
