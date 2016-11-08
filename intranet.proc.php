@@ -14,7 +14,8 @@
     }
 	extract($_REQUEST);
 
-    $sql = "SELECT * FROM tbl_usuario  ";
+    $sql = "SELECT * FROM tbl_usuario WHERE usu_alias='".$usu_alias."' AND usu_pass='".$usu_pass."'";
+    //echo $sql;
 
 	$usuarios = mysqli_query($conexion, $sql);	
 		//echo $sql;
@@ -25,20 +26,20 @@
 				
 				if(($usu_alias == $usuario['usu_alias']) && ($usu_pass == $usuario['usu_pass']  ) ){
 
-		
-       				header("location: intranet.php?usu_nombre=".$usuario['usu_nombre']."&usu_apellido=".$usuario['usu_apellido']."&usu_id=".$usuario['usu_id']);
+		          $conexion->close();
+                    header("location: index_intranet.php?usu_nombre=".$usuario['usu_nombre']."&usu_apellido=".$usuario['usu_apellido']."&usu_id=".$usuario['usu_id']);
 
         
-       				 //echo "Nombre: " . $usuario['usu_alias'] . "<br/>";
-        			//echo "pass: " . $usuario['usu_pass'] . "<br/>";
+                     //echo "Nombre: " . $usuario['usu_alias'] . "<br/>";
+                    //echo "pass: " . $usuario['usu_pass'] . "<br/>";
 
-        			}else {
+                    }else {
 
-							//echo "<dialog>El login es incorrecto</dialog>";
-							header('location: index.php?errorusuario="si"');
-		}
-			}
-		} 
+                            //echo "<dialog>El login es incorrecto</dialog>";
+                            header('location: index.php?errorusuario="si"');
+        }
+            }
+        } 
 
 ?>
 

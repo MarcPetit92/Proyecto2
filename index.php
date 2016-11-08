@@ -7,7 +7,7 @@ extract($_REQUEST);
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Flat HTML5/CSS3 Login Form</title>
+  <title>Iridium</title>
   <link rel="stylesheet" href="css/style.css">
   <script type="text/javascript" src="js/validacion.js"> </script>
 </head>

@@ -5,7 +5,7 @@
 
 		#container {
 			padding-left: 200px;
-			padding-right: 190px;
+			padding-right: 50px;
 		}
 		
 		#container .column {
@@ -16,6 +16,7 @@
 		#center {
 			padding: 10px 20px;
 			width: 100%;
+
 		}
 		
 		#left {
@@ -23,6 +24,9 @@
 			padding: 0 10px;
 			right: 240px;
 			margin-left: -100%;
+			min-height: 670px;
+
+
 		}
 		
 		#right {
@@ -70,7 +74,7 @@
 			padding: 0;
 			font-family:Sans-serif;
 			line-height: 1.5em;
-			padding-top: 50px;
+			padding-top: 70px;
 		}
 		
 		p {
@@ -90,31 +94,35 @@
 
 		#header, #footer {
 			
-			font-size: large;
+			font-size: 23px;
 			height: 50px;
-			background: #BCCE98;
-			font-family: "Arial";
+			background: #f4f5fa;
+			font-family: "Roboto";
 			padding: 10px;
+			color: #43A047;
+			z-index: 1000;
 
 
 			width: 100%; /* hacemos que la cabecera ocupe el ancho completo de la página */
 			left: 0; /* Posicionamos la cabecera al lado izquierdo */
 			top: 0; /* Posicionamos la cabecera pegada arriba */
 			position: fixed; /* Hacemos que la cabecera tenga una posición fija */
+			border-bottom: #43A047 5px solid;
 
 		}
 
 		.izq{
 			float: left;
-			width: 55%;		
+			width: 50%;	
+			margin-top: 20px;	
 		}
 
 		.der{
 
-
 			text-align: right;
 			float: left;
-			width: 25%;
+			width: 47%;
+			margin-top: 20px;
 
 		}
 
@@ -127,12 +135,13 @@
 		}
 
 		#center {
-			background: #fff;
+			background: #76b852;
 		}
 
 		#container .column {
 			padding-top: 1em;
 		}
+		
 		
 
 		.btn_reserva{
@@ -147,6 +156,20 @@
 
 			background: #43A047;
 			color: white;
+		}
+		.btn_devolver{
+
+			background: #F78181;
+			color: black;
+			width: 35%;
+			margin-left: 30%;
+
+		}
+		.btn_devolver:hover, .btn_devolver:active, .btn_devolver:focus{
+
+			background: #FE2E2E;
+			color: white;
+		
 		}
 
 		.reserva{

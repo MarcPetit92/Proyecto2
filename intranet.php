@@ -28,41 +28,43 @@
 <body>
 
 
-  <div id="header">
+  <header id="header">
   <div class="izq">Iridium</div>
     
   <div class = "der">
+
   <?php
 
   extract($_REQUEST);
-  
   echo "Intranet de " . $usu_nombre . " " . $usu_apellido ."" ;
   ?>
   </div>
   </div>
-<div class="filtro">
+  </header>
 
-	<form action="intranet.php" method="GET" >
+  <div id="container">
 
-				<input type="radio" name="rec_disponibilidad" value="0"> Mostrar no disponibles<br>
-  				<input type="radio" name="rec_disponibilidad" value="1"> Mostrar disponibles<br>
-  				<input type="radio" name="rec_disponibilidad" value=""> Mostrar todo<br>
-				<input type="submit" value="Filtrar">
-			
-	</form>
- </div>
+    <main id="center" class="column">
+    <div class="filtrototal">
 
- <?php
+     <?php
+    echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."&rec_disponibilidad=1' style= 'text-decoration:none; font-size:14px;'><div class='filtro'>Disponibles</div></a>";
+     echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."&rec_disponibilidad=0' style= 'text-decoration:none; font-size:14px;'><div class='filtro'>No disponibles</div></a>";
+     echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."&rec_disponibilidad=' style= 'text-decoration:none; font-size:14px;'><div class='filtro'>Todos</div></a>";?>
+    </div>
 
-if ($rec_disponibilidad != "") {
-$sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ". $rec_disponibilidad."= tbl_recursos.rec_disponibilidad";
-}else{
-	$sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
+            <?php
 
-}
-    
+    //$sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
 
-    $recursos = mysqli_query($conexion, $sql);  
+                if ($rec_disponibilidad != "") {
+                  $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ". $rec_disponibilidad."= tbl_recursos.rec_disponibilidad";
+                }else{
+                  $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
+
+                }
+
+  $recursos = mysqli_query($conexion, $sql);  
     //echo $sql;
 
     if(mysqli_num_rows($recursos)>0){
@@ -71,12 +73,14 @@ $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM
         
         echo "<div class = 'recurso'> ";
         echo "Nombre : " .$recurso['rec_nombre'] ."</br>";
-
+        $foto='img/'. $recurso['rec_foto'];
+        echo "<img src=".$foto." width='200' height='150'/></br>";
         echo "Tipo: " .$recurso['tip_nombre']."</br>";
-        //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
-       if ($recurso['rec_disponibilidad'] == '1'){
 
-            echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
+        //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
+       if ($recurso['rec_disponibilidad'] == 1){
+
+        echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
 
 
             //echo"<form name='reservar' action='reserva.proc.php?rec_id=".$recurso['rec_id']."&usu_id=".$usu_id."'>";
@@ -85,7 +89,7 @@ $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM
            
             
                 
-           	echo"</br> <a href="."reserva.proc.php?rec_id=".$recurso['rec_id']."&usu_id=".$usu_id." style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar"."</div></a> ";
+            echo"</br> <a href='reserva.proc.php?rec_id=".$recurso['rec_id']."&usu_id=".$usu_id."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar"."</div></a> ";
                
             }
         
@@ -104,8 +108,16 @@ $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM
       }
     } 
 
-?>
+?>     
+    </main>
 
+    <nav id="left" class="column">
+      <?php
+    echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."' style= 'text-decoration:none; font-size:14px;position: fixed;width:180px;'><div class='navegacion'>Mostrar recursos</div></a>";
+     echo "<a href='misreservas.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
+     echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";?>
+    
+    </nav>
+</div>
 </body>
 </html>
-
