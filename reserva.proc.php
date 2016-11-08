@@ -1,18 +1,9 @@
 <?php
+ //iniciamos sesión - SIEMPRE TIENE QUE ESTAR EN LA PRIMERA LÍNEA
+        session_start();
+        include("conexion.proc.php");
 
-		 //realizamos la conexión
-    $conexion = mysqli_connect('localhost', 'root', '', 'u163772754_p2ir');
-
-    //le decimos a la conexión que los datos los devuelva diréctamente en utf8, así no hay que usar htmlentities
-    $acentos = mysqli_query($conexion, "SET NAMES 'utf8'");
-
-    if (!$conexion) {
-        echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
-        echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
-        echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
-        exit;
-    }
-	extract($_REQUEST);
+	   extract($_REQUEST);
 
     
      $time = time();
@@ -21,7 +12,7 @@
 
     $hora=date("H:i:s", $time);
 
-   $sql = "INSERT INTO `tbl_reserva` (`res_fecha_ini`, `res_hora_ini`, `rec_id`, `usu_id`) VALUES ('".$fecha."','".$hora."',".$rec_id.",".$usu_id.")";
+   $sql = "INSERT INTO `tbl_reserva` (`res_fecha_ini`, `res_hora_ini`, `rec_id`, `usu_id`) VALUES ('".$fecha."','".$hora."',".$rec_id.",".$_SESSION['id'].")";
 
    $sql2 = "UPDATE tbl_recursos SET rec_disponibilidad = 0 WHERE rec_id = ".$rec_id ;
     
@@ -33,12 +24,12 @@
         if(mysqli_num_rows($reserva)>0){
                     //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
                     if (mysqli_num_rows($actualizar)>0) {
-                       header("location: misreservas.php?usu_id=".$usu_id."&rec_id=".$rec_id."&usu_id=".$usu_id."&usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido);
+                       header("location: misreservas.php?rec_id=".$rec_id );
                     }
                                                
                 } 
                 else{
-                        header("location: misreservas.php?usu_id=".$usu_id."&rec_id=".$rec_id."&usu_id=".$usu_id."&usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido);
+                        header("location: misreservas.php?rec_id=".$rec_id );
 
                 }
 

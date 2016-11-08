@@ -1,19 +1,10 @@
 <?php
+  //iniciamos sesión - SIEMPRE TIENE QUE ESTAR EN LA PRIMERA LÍNEA
+  session_start();
 
-     //realizamos la conexión
-    $conexion = mysqli_connect('localhost', 'root', '', 'u163772754_p2ir');
-
-    //le decimos a la conexión que los datos los devuelva diréctamente en utf8, así no hay que usar htmlentities
-    $acentos = mysqli_query($conexion, "SET NAMES 'utf8'");
-
-    if (!$conexion) {
-        echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
-        echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
-        echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
-        exit;
-    }
- 
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,22 +13,40 @@
     <link rel="stylesheet" href="css/intranet_main.css">   
 </head>
 <body>
+      <?php
+      if(isset($_SESSION['alias'])){
+        ?>
   <div id="header">
-  <div class="izq">Iridium</div>
-    
-  <div class = "der">
-  <?php
+        <!--<header id="cabecera">-->
+          <div class="izq">Iridium</div>
+            <div class="der">
+            <?php 
+            echo " Bienvenido: ".$_SESSION['nombre']." ".$_SESSION['apellido']. "&nbsp;<a href='index.php' > | Desconectar</a>"; ?>
 
-  extract($_REQUEST);
-  echo "Hola! " . $usu_nombre . " " . $usu_apellido . " ";
-  ?>
-  </div>
-  </div>
+            
+                
+            </div>
+            </div>
   <div class="opciones">
   		<?php
-  		echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."'><div class='opcion'><br>Mostrar recursos</div></a>";
-  		echo "<a href='misreservas.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."'><div class='opcion'><br>Mis reservas</div></a>";
-  		echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."'><div class='opcion'><br>Incidencias</div></a>";?>
-  </div>
-</body>
-</html>
+  		echo "<a href='intranet.php'> <div class='opcion'><br>Mostrar recursos</div></a>";
+  		echo "<a href='misreservas.php'><div class='opcion'><br>Mis reservas</div></a>";
+  		echo "<a href='intranet.php'><div class='opcion'><br>Incidencias</div></a>";
+      ?>
+      </div>
+      <?php
+     }
+     else {
+        //como han intentado acceder de manera incorrecta, redirigimos a la página index.php con un mensaje de error
+        $_SESSION['error']="PILLÍN! Tienes que logarrte primero!";
+        header("location: index.php");
+      }
+
+      //end if(isset($_SESSION['mail'])){
+      ?>
+
+
+    
+  
+  </body>
+</html> 

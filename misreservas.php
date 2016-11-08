@@ -1,20 +1,7 @@
 <?php
-
-     //realizamos la conexión
-    $conexion = mysqli_connect('localhost', 'root', '', 'u163772754_p2ir');
-
-    //le decimos a la conexión que los datos los devuelva diréctamente en utf8, así no hay que usar htmlentities
-    $acentos = mysqli_query($conexion, "SET NAMES 'utf8'");
-
-    if (!$conexion) {
-        echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
-        echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
-        echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
-        exit;
-    }
-
-    extract($_REQUEST);
- 
+  //iniciamos sesión - SIEMPRE TIENE QUE ESTAR EN LA PRIMERA LÍNEA
+  session_start();
+  include("conexion.proc.php");
 ?>
 
 
@@ -30,48 +17,30 @@
 <body>
 
 
+  
+<?php
+      if(isset($_SESSION['alias'])){
+?>
   <header id="header">
-  <div class="izq">Iridium</div>
-    
-  <div class = "der">
-  <?php
-
-  //echo $usu_id;
-
-    $sql = "SELECT * FROM `tbl_usuario` WHERE `usu_id` = ".$usu_id;
-
-   //echo $sql;
-    $usuarios = mysqli_query($conexion, $sql);  
-    //echo $sql;
-
-    if(mysqli_num_rows($usuarios)>0){
-      //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
-      while($usuario = mysqli_fetch_array($usuarios)){
-        
-       
-      echo "Intranet de " . $usuario['usu_nombre'] . " " . $usuario['usu_apellido']  ;
-       
-      }
-    } 
-
-  ?>
-  </div>
-  </div>
+        <!--<header id="cabecera">-->
+          <div class="izq">Iridium</div>
+            <div class="der">
+            <?php 
+            echo " Bienvenido: ".$_SESSION['nombre']." ".$_SESSION['apellido']."&nbsp; <a href='index.php' > | Desconectar</a>"; 
+            ?>    
+            </div>
   </header>
 
  <div id="container">
 
     <main id="center" class="column">
+
  <?php
 
-    $sql2 = "SELECT * FROM `tbl_reserva` WHERE (`res_fecha_fin` IS NULL OR `res_hora_fin` IS NULL ) AND (`usu_id` = ".$usu_id.")";
+    $sql2 = "SELECT * FROM `tbl_reserva` WHERE (`res_fecha_fin` IS NULL OR `res_hora_fin` IS NULL ) AND (`usu_id` = ".$_SESSION['id'].")";
 
     $reservas = mysqli_query($conexion, $sql2);  
     //echo $sql;
-
-
-
-
     if(mysqli_num_rows($reservas)>0){
       //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
       while($reserva = mysqli_fetch_array($reservas)){
@@ -88,12 +57,8 @@
         echo "Hora de la reserva: " .$reserva['res_hora_ini']."</br>";
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
       
-        echo"</br> <a href="."devolucion.proc.php?res_id=".$reserva['res_id']."&usu_id=".$usu_id."&rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."Devolver"."</div></a> ";
+        echo"</br> <a href="."devolucion.proc.php?res_id=".$reserva['res_id']."&rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."Devolver"."</div></a> ";
         echo "</div>";
-      
-
-
-
       }
     }
     else
@@ -108,7 +73,7 @@
 
   <?php
 
-        $sql6 ="SELECT res_fecha_ini, res_hora_ini, rec_nombre  FROM `tbl_reserva`, `tbl_recursos` WHERE (".$usu_id." = tbl_reserva.usu_id )AND (tbl_recursos.rec_id = tbl_reserva.rec_id)";
+        $sql6 ="SELECT res_fecha_ini, res_hora_ini, rec_nombre  FROM `tbl_reserva`, `tbl_recursos` WHERE (".$_SESSION['id']." = tbl_reserva.usu_id )AND (tbl_recursos.rec_id = tbl_reserva.rec_id)";
 
         
         $historial = mysqli_query($conexion, $sql6);  
@@ -138,10 +103,18 @@
 
 <nav id="left" class="column">
       <?php
-    echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."' style= 'text-decoration:none; font-size:14px;position: fixed;width:180px;'><div class='navegacion'>Mostrar recursos</div></a>";
-     echo "<a href='misreservas.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
-     echo "<a href='intranet.php?usu_nombre=".$usu_nombre."&usu_apellido=".$usu_apellido."&usu_id=".$usu_id."' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";?>
-    
+    echo "<a href='intranet.php' style= 'text-decoration:none; font-size:14px;position: fixed;width:180px;'><div class='navegacion'>Mostrar recursos</div></a>";
+     echo "<a href='misreservas.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
+     echo "<a href='intranet.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";
+     }
+     else {
+        //como han intentado acceder de manera incorrecta, redirigimos a la página index.php con un mensaje de error
+        $_SESSION['error']="PILLÍN! Tienes que logarrte primero!";
+        header("location: index.php");
+      }
+
+      //end if(isset($_SESSION['mail'])){
+      ?>
     </nav>
     </div>
 </body>
