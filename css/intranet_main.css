@@ -5,7 +5,7 @@
 
 		#container {
 			padding-left: 200px;
-			padding-right: 50px;
+			padding-right: 35px;
 		}
 		
 		#container .column {
@@ -30,9 +30,9 @@
 		}
 		
 		#right {
-			width: 130px;
+			width: 400px;
 			padding: 0 10px;
-			margin-right: -100%;
+			margin-right: -50%;
 		}
 		
 		#footer {
@@ -72,7 +72,7 @@
 		body {
 			margin: 0;
 			padding: 0;
-			font-family:Sans-serif;
+			font-family:"Roboto";
 			line-height: 1.5em;
 			padding-top: 70px;
 		}
@@ -114,8 +114,23 @@
 		.izq{
 			float: left;
 			width: 50%;	
-			margin-top: 20px;	
+			margin-top: 20px;
+		
+
 		}
+		.izq a:link   
+{   
+ text-decoration:none;
+ color:#43A047;   
+}   
+.izq a:visited {text-decoration:none;color:#43A047;} 
+
+
+.izq a:active {text-decoration:none;color:#43A047;} 
+
+
+.izq a:hover {text-decoration:none;color:#43A047;} 
+
 
 		.der{
 
@@ -125,8 +140,18 @@
 			margin-top: 20px;
 
 		}
+		.der a:link   
+{   
+ text-decoration:none;
+ color:#43A047;   
+}   
+.der a:visited {text-decoration:none;color:#43A047;} 
 
-		#left {
+
+.der a:active {text-decoration:none;color:#43A047;} 
+
+
+.der a:hover {text-decoration:none;color:#43A047;} der	#left {
 			background: #DAE9BC;
 		}
 		
@@ -179,11 +204,11 @@
 				  float: left;
 				  z-index: 1;
 				  
-				  width: 250px;
-				  height: 100px;
+				  width: 180px;
+
 
 				  margin:  25px;
-				  padding: 25px;
+				  padding: 20px;
 				  text-align: center;
 				  align-items: center;
 

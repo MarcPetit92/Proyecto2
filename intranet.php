@@ -8,7 +8,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Intranet</title> 
+  <title>Recursos</title> 
       <link rel="stylesheet" href="css/style.css">   
       <link rel="stylesheet" href="css/intranet_main.css">   
 </head>
@@ -20,41 +20,42 @@
 ?>
   <header id="header">
         <!--<header id="cabecera">-->
-          <div class="izq">Iridium</div>
+          <div class="izq" style="font-size:30px;"><b><a href="index_intranet.php">Iridium</a></b></div>
             <div class="der">
             <?php 
-            echo " Bienvenido: ".$_SESSION['nombre']." ".$_SESSION['apellido']."&nbsp; <a href='index.php' > | Desconectar</a>"; 
+            echo " Bienvenido: ".$_SESSION['nombre']." ".$_SESSION['apellido']. "&nbsp; <a href='index.php' > <img src='img/off.png' width='20px'/></a>";
             ?>    
             </div>
   </header>
 
-<div id="container">
+  <div id="container">
 
     <main id="center" class="column">
     <div class="filtrototal">
 
      <?php
-    echo "<a href='intranet.php?rec_disponibilidad=1' style='text-decoration:none; font-size:14px;'><div class='filtro'>Disponibles</div></a>";
-     echo "<a href='intranet.php?rec_disponibilidad=0' style='text-decoration:none; font-size:14px;'><div class='filtro'>No disponibles</div></a>";
-     echo "<a href='intranet.php?rec_disponibilidad=' style= 'text-decoration:none; font-size:14px;'><div class='filtro'>Todos</div></a>";
-     ?>
+    echo "<a href='intranet.php?rec_disponibilidad=1' style= 'text-decoration:none; font-size:14px;'><div class='filtro'>Disponibles</div></a>";
+     echo "<a href='intranet.php?rec_disponibilidad=0' style= 'text-decoration:none; font-size:14px;'><div class='filtro'>No disponibles</div></a>";
+     echo "<a href='intranet.php?rec_disponibilidad=' style= 'text-decoration:none; font-size:14px;'><div class='filtro'>Todos</div></a>";?>
     </div>
 
-  <?php
-            extract($_REQUEST);
+            <?php
+
+                extract($_REQUEST);
 
                 if ($rec_disponibilidad != "") {
                   $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ". $rec_disponibilidad."= tbl_recursos.rec_disponibilidad";
                 }else{
                   $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
-                    }
-  
-        $recursos = mysqli_query($conexion, $sql);  
+
+                }
+
+  $recursos = mysqli_query($conexion, $sql);  
     //echo $sql;
 
     if(mysqli_num_rows($recursos)>0){
-     
-      while($recurso = mysqli_fetch_assoc($recursos)){
+      
+      while($recurso = mysqli_fetch_array($recursos)){
         
         echo "<div class = 'recurso'> ";
         echo "Nombre : " .$recurso['rec_nombre'] ."</br>";
@@ -65,10 +66,13 @@
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
        if ($recurso['rec_disponibilidad'] == 1){
 
-            echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
-            
-            echo"</br> <a href='reserva.proc.php?rec_id=".$recurso['rec_id']."' style='text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar"."</div></a> ";             
+           echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
+               
+            echo"</br> <a href='reserva.proc.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar"."</div></a> ";
+               
             }
+        
+      
         else{
             echo "</br> <span class= 'nodisponible'> No esta disponible" ."</span>";
             echo"<form name="."reservar". "action="."reserva.proc.php" ."class="."login-form".">";
@@ -90,18 +94,17 @@
      echo "<a href='misreservas.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
      echo "<a href='intranet.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";
 
-    
- }
+
+     }
      else {
         //como han intentado acceder de manera incorrecta, redirigimos a la página index.php con un mensaje de error
-        $_SESSION['error']="PILLÍN! Tienes que logarrte primero!";
+        $_SESSION['error']="PILLÍN! Tienes que loguearte primero!";
         header("location: index.php");
       }
 
       //end if(isset($_SESSION['mail'])){
       ?>
-
     </nav>
-    </div>
-    </body>
-    </html>
+</div>
+</body>
+</html>
