@@ -79,10 +79,10 @@
         if(mysqli_num_rows($historial)>0){
 
             echo "<tr>";
-            echo "<td style='background:#43A047;color:white;'>Día:</td>";
-            echo "<td style='background:#43A047;color:white;'>Desde:</td>";
-            echo "<td style='background:#43A047;color:white;'>Hasta:</td>";
-            echo "<td style='background:#43A047;color:white;'>Recurso:</td>";
+            echo "<td style='background:#43A047;color:white;border-color: white;'>Día:</td>";
+            echo "<td style='background:#43A047;color:white;border-color: white;'>Desde:</td>";
+            echo "<td style='background:#43A047;color:white;border-color: white;'>Hasta:</td>";
+            echo "<td style='background:#43A047;color:white;border-color: white;'>Recurso:</td>";
             echo "</tr>";
           //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
           while($elementos = mysqli_fetch_array($historial)){
@@ -117,8 +117,8 @@
       echo "<a href='intranet.php?rec_disponibilidad=' style= 'text-decoration:none; font-size:14px;position: fixed;width:180px;'><div class='navegacion'>Mostrar recursos</div></a>";
      echo "<a href='misreservas.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
      echo "<a href='intranet.php?rec_disponibilidad=' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";
-      if ($_SESSION['tipo']== 'Administrador'){
-         echo "<a href='administrar.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Administrar</div></a>";
+     if ($_SESSION['tipo']== 'Administrador'){
+         echo "<a href='administrar.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
       }
 
    }

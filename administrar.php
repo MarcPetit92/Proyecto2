@@ -34,12 +34,12 @@
 
 
 <div class="historial">
-<table border>
+<table border style="width:100%;border-collapse: collapse;border-color:#43A047;">
 <label>Estadística reservas</label>
 <tr>
-<td>Recurso solicitado </td>
-<td>Total de veces solicitado</td>
-<td>Usuario que lo ha solicitado</td>
+<td style='background:#43A047;color:white;border-color: white;'>Recurso solicitado </td>
+<td style='background:#43A047;color:white;border-color: white;'>Total de veces solicitado</td>
+<td style='background:#43A047;color:white;border-color: white;'>Usuario que más lo ha solicitado</td>
 </tr>
 <?php
 
@@ -71,7 +71,7 @@
      echo "<a href='misreservas.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
      echo "<a href='intranet.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";
      if ($_SESSION['tipo']== 'Administrador'){
-         echo "<a href='administrar.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Administrar</div></a>";
+         echo "<a href='administrar.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
       }
 
      } else {
