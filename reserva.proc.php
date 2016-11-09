@@ -14,7 +14,7 @@
 
    $sql = "INSERT INTO `tbl_reserva` (`res_fecha_ini`, `res_hora_ini`, `rec_id`, `usu_id`) VALUES ('".$fecha."','".$hora."',".$rec_id.",".$_SESSION['id'].")";
 
-   $sql2 = "UPDATE tbl_recursos SET rec_disponibilidad = 0 WHERE rec_id = ".$rec_id ;
+   $sql2 = "UPDATE tbl_recursos SET rec_disponibilidad = '0' WHERE rec_id = ".$rec_id ;
     
     //echo $sql;
 	$reserva = mysqli_query($conexion, $sql);	

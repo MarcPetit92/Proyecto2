@@ -29,9 +29,12 @@
             </div>
   <div class="opciones">
       <?php
-      echo "<a href='intranet.php'> <div class='opcion'><br>Mostrar recursos</div></a>";
+      echo "<a href='intranet.php?rec_disponibilidad='> <div class='opcion'><br>Mostrar recursos</div></a>";
       echo "<a href='misreservas.php'><div class='opcion'><br>Mis reservas</div></a>";
-      echo "<a href='intranet.php'><div class='opcion'><br>Incidencias</div></a>";
+      echo "<a href='intranet.php?rec_disponibilidad='><div class='opcion'><br>Incidencias</div></a>";
+       if ($_SESSION['tipo']== 'Administrador'){
+        echo "<a href='administrar.php'><div class='opcion'><br>Administrar</div></a>";
+      }
       ?>
       </div>
       <?php
