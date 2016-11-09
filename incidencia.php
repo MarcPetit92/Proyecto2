@@ -35,7 +35,7 @@
  <div id="container">
 
     <main id="center" class="column">
-    <div class="centro">
+    
  <?php
 
     $sql2 = "SELECT * FROM `tbl_reserva` WHERE (`res_fecha_fin` IS NULL OR `res_hora_fin` IS NULL ) AND (`usu_id` = ".$_SESSION['id'].")";
@@ -46,7 +46,7 @@
       //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
       while($reserva = mysqli_fetch_array($reservas)){
         
-        echo "<div class = 'reserva'> ";
+        echo "<div class = 'reserva' style='width:400px;'> ";
         $sql3 ="SELECT * FROM tbl_recursos WHERE rec_id =".$reserva['rec_id'] ;
         $recursos = mysqli_query($conexion, $sql3);
          if(mysqli_num_rows($recursos)>0){
@@ -59,10 +59,10 @@
         echo "Hora: " .$reserva['res_hora_ini']."</br>";
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
         
-        echo"<form name='incidencia' action='incidencia.proc.php' > <textarea rows='4' cols='50' name='inc_descripcion'>Escribe la descripcion... </textarea> <input type='hidden' name='rec_id' value=".$reserva['rec_id']."> <input type='submit'></form>  ";
+        echo"<form name='incidencia' action='incidencia.proc.php' > </br><textarea rows='4' cols='50' name='inc_descripcion'>Describe el problema ...</textarea> <input type='hidden' name='rec_id' value=".$reserva['rec_id']."> <input type='submit' style='background:yellow;width:80px;'></form>  ";
 
 
-        echo"</br> <a href="."incidencia.proc.php?rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."Incidencia"."</div></a> ";
+        //echo"</br> <a href="."incidencia.proc.php?rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."Incidencia"."</div></a> ";
 
 
         echo "</div>";
@@ -70,50 +70,11 @@
     }
     else
     {
-      echo "<br><span style='color:white;font-family:Roboto;font-size:20px;'>No tienes ninguna reserva...</span>";
+      echo "<br><span style='color:white;font-family:Roboto;font-size:20px;'>Si no hay reservas, no puedes poner incidencias...</span>";
     } 
 
-?></div>
-<div class="historial">
-<table border style="width:100%;border-collapse: collapse;border-color:#43A047;">
-<label>Historial de reservas</label>
+?>
 
-  <?php
-
-        $sql6 ="SELECT res_fecha_ini, res_hora_ini, res_hora_fin, rec_nombre  FROM `tbl_reserva`, `tbl_recursos` WHERE (".$_SESSION['id']." = tbl_reserva.usu_id )AND (tbl_recursos.rec_id = tbl_reserva.rec_id)";
-
-        
-        $historial = mysqli_query($conexion, $sql6);  
-        if(mysqli_num_rows($historial)>0){
-
-            echo "<tr>";
-            echo "<td style='background:#43A047;color:white;border-color: white;'>Día:</td>";
-            echo "<td style='background:#43A047;color:white;border-color: white;'>Desde:</td>";
-            echo "<td style='background:#43A047;color:white;border-color: white;'>Hasta:</td>";
-            echo "<td style='background:#43A047;color:white;border-color: white;'>Recurso:</td>";
-            echo "</tr>";
-          //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
-          while($elementos = mysqli_fetch_array($historial)){
-            
-            echo"<tr>";
-            echo"<td>".$elementos['res_fecha_ini']."</td>";
-            echo"<td>".$elementos['res_hora_ini']."</td>";
-            echo"<td>".$elementos['res_hora_fin']."</td>";
-            echo "<td>".$elementos['rec_nombre']."</td>";
-            //aqui voy a motrar el nombre
-
-            echo "</tr>";
-          }
-
-
-        }else{
-
-        }
-
-  ?>
-  
-</table>
-</div>
 
 </main>
 

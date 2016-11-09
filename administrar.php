@@ -30,24 +30,24 @@
 
 <div id="container">
 
-
     <main id="center" class="column">
 
+<div class="centro" style="background:white;text-align:center;padding-left:16px;padding-bottom:16px;text-align: center;align-items: center;justify-content: center;">
+<table border style="width:95%;border-collapse: collapse;border-color:#43A047;background:white;">
 
-<div class="historial">
-<table border style="width:100%;border-collapse: collapse;border-color:#43A047;">
-<label>Incidencias abiertas</label>
-<tr>
-<td>Nombre recurso</td>
-<td>Fecha incidencia</td>
-<td>Usuario que la ha abierto</td>
-</tr>
+
 
 <?php
 
-$sql2 = "SELECT inc_id, inc_fecha_inicio, tbl_recursos.rec_nombre, tbl_usuario.usu_id , tbl_usuario.usu_apellido FROM tbl_recursos, tbl_usuario, tbl_incidencias where tbl_recursos.rec_id = tbl_reserva.rec_id and tbl_usuario.usu_id = tbl_reserva.usu_id ";
-
-
+$sql2 = "SELECT inc_id, inc_fecha_ini, inc_descripcion, tbl_recursos.rec_nombre, tbl_usuario.usu_nombre , tbl_usuario.usu_id , tbl_usuario.usu_apellido FROM tbl_recursos, tbl_usuario, tbl_incidencias where tbl_recursos.rec_id = tbl_incidencias.rec_id and tbl_usuario.usu_id = tbl_incidencias.usu_id  AND  tbl_incidencias.inc_fecha_fin IS NULL ";
+echo "<h3>Incidencias abiertas</h3>";
+echo "<tr>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Nombre recurso</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Usuario</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Fecha</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Descripcion</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Cerrar</td>";
+             echo "</tr>";
   $incidencias= mysqli_query($conexion, $sql2);
       
 
@@ -55,11 +55,13 @@ $sql2 = "SELECT inc_id, inc_fecha_inicio, tbl_recursos.rec_nombre, tbl_usuario.u
 
            while($incidencia = mysqli_fetch_assoc($incidencias)){
             
+
             echo"<tr>";
             echo"<td>" .$incidencia['rec_nombre'] ."</td>";
             echo"<td>" .$incidencia['usu_nombre'] ." ".$incidencia['usu_apellido']." </td>";
             echo"<td>" .$incidencia['inc_fecha_ini'] ."</td>";
-            echo"<td><a href="."cerrar_inc.proc.php?inc_id=".$incidencia['inc_id']."style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."(x) cerrar incidencia"."</div></a> </td>";
+             echo"<td>" .$incidencia['inc_descripcion'] ."</td>";
+            echo"<td><a href='cerrar_inc.proc.php?inc_id=".$incidencia['inc_id']."' style='text-decoration:none; font-size:14px;' > "."<img src='img/cerrar.png' width='20px'/>"."</div></a> </td>";
             echo "</tr>";
           
         }
@@ -75,7 +77,7 @@ $sql2 = "SELECT inc_id, inc_fecha_inicio, tbl_recursos.rec_nombre, tbl_usuario.u
 </div>
 <div class="historial">
 <table border style="width:100%;border-collapse: collapse;border-color:#43A047;">
-<label>Estadística reservas</label>
+<h3>Estadística reservas</h3>
 <tr>
 <td style='background:#43A047;color:white;border-color: white;'>Recurso solicitado </td>
 <td style='background:#43A047;color:white;border-color: white;'>Total de veces solicitado</td>
@@ -83,18 +85,9 @@ $sql2 = "SELECT inc_id, inc_fecha_inicio, tbl_recursos.rec_nombre, tbl_usuario.u
 </tr>
 <?php
 
-
            $sql = "SELECT tbl_reserva.rec_id, sum(1)as veces, tbl_recursos.rec_nombre, tbl_usuario.usu_nombre, tbl_usuario.usu_apellido FROM `tbl_reserva`, tbl_recursos, tbl_usuario where tbl_recursos.rec_id = tbl_reserva.rec_id and tbl_usuario.usu_id = tbl_reserva.usu_id group by rec_id";
-
-
-
-
+        
          $estadisticas = mysqli_query($conexion, $sql);  
-
-
-
-
-
         if(mysqli_num_rows($estadisticas)>0){
            while($estadistica = mysqli_fetch_assoc($estadisticas)){
             
@@ -106,8 +99,6 @@ $sql2 = "SELECT inc_id, inc_fecha_inicio, tbl_recursos.rec_nombre, tbl_usuario.u
           }
 
         }
-
-
 
     ?>
   

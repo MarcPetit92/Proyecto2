@@ -11,8 +11,8 @@
   <meta charset="UTF-8">
   <title>Mis reservas</title> 
       <link rel="stylesheet" href="css/style.css">   
-      <link rel="stylesheet" href="css/intranet_main.css"> 
-      
+      <link rel="stylesheet" href="css/intranet_main.css">   
+
 </head>
 
 <body>
@@ -53,7 +53,6 @@
         echo "<b>".$recurso['rec_nombre']  ."</b></br>";
           }
         }
-        
         echo "Fecha: " .$reserva['res_fecha_ini'] ."</br>";
         echo "Hora: " .$reserva['res_hora_ini']."</br>";
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
@@ -70,7 +69,7 @@
 ?></div>
 <div class="historial">
 <table border style="width:100%;border-collapse: collapse;border-color:#43A047;">
-<label>Historial de reservas</label>
+<h3>Historial de reservas</h3>
 
   <?php
 
@@ -133,9 +132,6 @@
       //end if(isset($_SESSION['mail'])){
       ?>
     </nav>
-    </div>
-
-   
     </div>
 </body>
 </html>
