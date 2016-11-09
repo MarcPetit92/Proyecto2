@@ -1,3 +1,4 @@
+
 <?php
   //iniciamos sesión - SIEMPRE TIENE QUE ESTAR EN LA PRIMERA LÍNEA
   session_start();
@@ -57,8 +58,13 @@
         echo "Fecha: " .$reserva['res_fecha_ini'] ."</br>";
         echo "Hora: " .$reserva['res_hora_ini']."</br>";
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
-      
-        echo"</br> <a href="."devolucion.proc.php?res_id=".$reserva['res_id']."&rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."Devolver"."</div></a> ";
+        
+        echo"<form name='incidencia' action='incidencia.proc.php' > <textarea rows='4' cols='50' name='inc_descripcion'>Escribe la descripcion... </textarea> <input type='hidden' name='rec_id' value=".$reserva['rec_id']."> <input type='submit'></form>  ";
+
+
+        echo"</br> <a href="."incidencia.proc.php?rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."Incidencia"."</div></a> ";
+
+
         echo "</div>";
       }
     }
@@ -139,4 +145,6 @@
     </div>
 </body>
 </html>
+
+
 
