@@ -66,9 +66,11 @@
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
        if ($recurso['rec_disponibilidad'] == 1){
 
-           echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
+            echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
                
-            echo"</br> <a href='reserva.proc.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar"."</div></a> ";
+            echo"</br> <a href='reserva.proc.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar ahora"."</div></a> ";
+
+            echo"</br> <a href='futura_reserva.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Futura Reserva"."</div></a> ";
                
             }
         

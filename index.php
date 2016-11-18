@@ -36,7 +36,7 @@
       <input type="text" name="alias" placeholder="usuario" onfocus="document.Login.usu_alias.style.color='';" />
       <input type="password" name="pass" placeholder="contraseña" onfocus="document.Login.usu_pass.style.color='';"/>
       <button>Entrar</button>
-   
+      <p class="message">No estás registrado? <a href="form_registro.php">Crear una cuenta</a></p>
     </form>
   </div>
 </div>
