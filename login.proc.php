@@ -22,6 +22,8 @@
 		$_SESSION['apellido']=$datos_usuario['usu_apellido'];
 		$_SESSION['tipo']=$datos_usuario['usu_tipo'];
 
+		$_SESSION['fecha_actual'] = date("Y-m-d");
+		$_SESSION['hora_actual'] = date("H:i:s", $time);
 		//redirigimos a la página principal
 		header("location: index_intranet.php");
 	} else {

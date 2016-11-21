@@ -33,7 +33,10 @@
       echo "<a href='misreservas.php'><div class='opcion'><br>Mis reservas</div></a>";
       echo "<a href='incidencia.php'><div class='opcion'><br>Incidencias</div></a>";
        if ($_SESSION['tipo']== 'Administrador'){
-        echo "<a href='administrar.php'><div class='opcion'><br>Administrar</div></a>";
+         echo "<a href='administracion.php'><div class='opcion'><br>Administrar </div></a>";
+
+         
+         
       }
       ?>
       </div>

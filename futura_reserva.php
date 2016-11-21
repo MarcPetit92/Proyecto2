@@ -10,7 +10,8 @@
   <meta charset="UTF-8">
   <title>Recursos</title> 
       <link rel="stylesheet" href="css/style.css">   
-      <link rel="stylesheet" href="css/intranet_main.css">   
+      <link rel="stylesheet" href="css/intranet_main.css"> 
+
 </head>
 
 <body>
@@ -23,6 +24,7 @@
           <div class="izq" style="font-size:30px;"><b><a href="index_intranet.php">Iridium</a></b></div>
             <div class="der">
             <?php 
+            extract($_REQUEST);
             echo " Bienvenido: ".$_SESSION['nombre']." ".$_SESSION['apellido']. "&nbsp; <a href='index.php' > <img src='img/off.png' width='20px'/></a>";
             ?>    
             </div>
@@ -34,11 +36,102 @@
 <div class="form">
 
        <h3>Formulario reservar recurso </h3>
-        <form name="registro" action="futura_reserva.proc.php" class="login-form" >
-          <input type="date" name="res_fecha_ini">
+      <?php
 
-          <input type="time" name="hora">
-              
+       if(isset($_SESSION['error_reserva'])){
+        echo "<div style='color = red';>";
+        echo $_SESSION['error_reserva'] ;
+        echo "</div>";
+       }
+      
+      ?>
+        <form name="registro" action="futura_reserva.proc.php" class="login-form" >
+          <label>Reservar el dia : </label> 
+          <?php $fecha= date("Y-m-d"); ?>
+          <input type="date" name="res_fecha_ini"  min="<?php echo $fecha ; ?>" value="<?php echo $fecha ; ?>">
+          
+          <br/>
+         <table width="500" border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          De 
+
+        </tr>
+        <tr>
+          <select name="res_hora_ini" id="hora">
+          <?php
+            for ($i=0;$i<24;$i++){
+              echo ("<OPTION VALUE='");
+              printf ("%02s",$i);
+              echo ("'>");
+              printf("%02s",$i);
+              echo ("</OPTION>".salto);
+            }
+          ?>
+          </select>
+          <label> h</label>
+        </tr>
+        <tr>
+         : 
+        </tr>
+        <tr>
+          <select name="minutos_ini" id="minutos">
+          <?php
+            for ($i=0;$i<51;$i+=10){
+              echo ("<OPTION VALUE='");
+              printf ("%02s",$i);
+              echo ("'>");
+              printf("%02s",$i);
+              echo ("</OPTION>".salto);
+            }
+          ?>
+          </select>
+          <label> min</label>
+        </tr>
+      </table>
+
+            
+            <br/>
+         <table width="500" border="0" cellspacing="0" cellpadding="2">
+        <tr>
+         Hasta
+
+        </tr>
+        <tr>
+          <select name="res_hora_fin" id="hora">
+          <?php
+            for ($i=0;$i<24;$i++){
+              echo ("<OPTION VALUE='");
+              printf ("%02s",$i);
+              echo ("'>");
+              printf("%02s",$i);
+              echo ("</OPTION>".salto);
+            }
+          ?>
+          </select>
+          <label> h</label>
+        </tr>
+        <tr>
+        :  
+        </tr>
+        <tr>
+          <select name="minutos_fin" id="minutos">
+          <?php
+            for ($i=0;$i<51;$i+=10){
+              echo ("<OPTION VALUE='");
+              printf ("%02s",$i);
+              echo ("'>");
+              printf("%02s",$i);
+              echo ("</OPTION>".salto);
+            }
+          ?>
+          </select>
+          <label> min</label>
+        </tr>
+      </table>
+
+        <br/>
+           <input type="text" name="rec_id"  style="display:none" value="<?php echo $rec_id ; ?>">
+        
 
           <button>Enviar</button>
       
