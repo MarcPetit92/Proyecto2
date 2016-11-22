@@ -37,7 +37,7 @@
     <div class="centro">
  <?php
 
-    $sql2 = "SELECT * FROM `tbl_reserva` WHERE ((`res_fecha_fin` IS NULL OR `res_hora_fin` IS NULL) OR res_fecha_ini = ".$_SESSION['fecha_actual']." ) AND (`usu_id` = ".$_SESSION['id'].")";
+    $sql2 = "SELECT * FROM tbl_reserva, tbl_recursos WHERE ((tbl_reserva.rec_id = tbl_recursos.rec_id AND tbl_reserva.usu_id = $_SESSION['usu_id']) AND (tbl_recursos.rec_reservado = 1)) ";
 
     $reservas = mysqli_query($conexion, $sql2);  
     //echo $sql;

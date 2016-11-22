@@ -31,38 +31,61 @@
 <div id="container">
 
     <main id="center" class="column">
-
-<div class="centro" style="background:white;text-align:center;padding-left:16px;padding-bottom:16px;text-align: center;align-items: center;justify-content: center;">
-
-
-
- <form name="form_recursos" action="anadir_recursos.proc.php " class="login-form" onsubmit="return validar_recurso();">
+<div class="form">
 <?php
-  if(isset($_SESSION['error_recurso'])){
-    echo"<label>".$_SESSION['error_recurso']."</label>";
-  }
-?>
-      <input type="text" name="rec_nombre" placeholder="Nombre del recurso" onfocus="document.registro.rec_nombre.style.borderColor='#F2F2F2'; document.registro.alias.placeholder='Nombre del recurso';" />
-          <label>Tipo de recurso</label>
-          <select name="tip_id" >
-          <option value="1">Aula teoria</option>
-          <option value="3">Aula informatica</option>
-          <option value="4">Despacho</option>
-          <option value="5" >Sala reuniones</option>
-          <option value="6">Proyector</option>
-          <option value="7">Carrito</option>
-          <option value="8">Portatil</option>
-          <option value="9" >Movil</option>
-        </select> 
-        
-        <input type="file" name="rec_foto" accept="image/*">
-        
-        
-      <button>Enviar</button>
+extract($_REQUEST);
+
+ 
+        echo "<h2 style='color:#43A047;'>Formulario modificar usuario</h1>";
+              
+            
+ $sql = "SELECT * FROM tbl_usuario WHERE usu_id = '".$usu_id."'";
+  //echo $sql;
+ $usuario= mysqli_query($conexion, $sql);
+
+
+        if(mysqli_num_rows($usuario)>0){
+
+           while($dato_usuario = mysqli_fetch_assoc($usuario)){
+           
+            
+
+            echo"<form name='modificar_usuario' action='modificar_usuario.proc.php' class='login-form' onsubmit='return validar_registro();''>";
+
+            echo"<label>Alias del usuario</label>";
+            echo"<input type='text' name='usu_alias' value=".$dato_usuario['usu_alias'].">";
+
+            echo"<label>Nombre del Usuario</label>";
+            echo"<input type='text' name='usu_nombre' value=".$dato_usuario['usu_nombre'].">";
+
+            echo"<label>Apellido de Usuario</label>";
+            echo"<input type='text' name='usu_apellido' value=".$dato_usuario['usu_apellido'].">";
+
+            echo"<label> Email del Usuario</label>";
+            echo"<input type='tex' name='usu_email' value=".$dato_usuario['usu_email'].">";
+
+
+            echo"<label>Rango del Usuario</label><br/>";
+            echo"<select name='usu_tipo' >
+              <option value='Administrador'>Administrador</option>
+              <option value='Usuario'>Usuario</option>
+              </select> <br/>";
+              echo" <input type='text' name='usu_id'  style='display:none' value=".$usu_id.">";
+
+            echo"<label>Estado Usuario</label><br/>";
+              echo"<select name='usu_deshabilitado' >
+              <option value='0'>Habilitado</option>
+              <option value='1'>Deshabilitado</option>
+              </select> <br/><br/><br/>";
+            echo"<button>Enviar</button>";
       
-    </form>
+       echo"</form>";
 
+           }
 
+         }
+
+  ?> 
 
 </div>
     </main>

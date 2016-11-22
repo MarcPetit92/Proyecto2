@@ -32,15 +32,59 @@
 
     <main id="center" class="column">
 
-<div class="centro" style="background:white;text-align:center;padding-left:20px;padding-bottom:20px;text-align: center;align-items: center;justify-content: center;">
+<table border style="width:95%;border-collapse: collapse;border-color:#43A047;background:white;">
 
-
+ 
 
 <?php
 
+$sql = "SELECT * FROM tbl_usuario ";
+
+echo "<h3>Lista de Usuarios</h3>";
+echo "<tr>";
+           
+            echo "<td style='background:yellow;color:black;border-color: green;'>Alias usuario</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Nombre Usuario</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Apellido Usuario</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Email Usuario</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Categoria Usuario</td>";
+             echo "<td style='background:yellow;color:black;border-color: green;'>Deshabilitado</td>";
+            echo "<td style='background:yellow;color:black;border-color: green;'>Administrar</td>";
+             echo "</tr>";
+    $usuarios= mysqli_query($conexion, $sql);
+      
+
+        if(mysqli_num_rows($usuarios)>0){
+
+           while($dato_usuario = mysqli_fetch_assoc($usuarios)){
+            
+            if ($dato_usuario['usu_deshabilitado'] == '1') {
+
+            echo"<tr style='color:grey; font-weight: bold'> ";
+            }else{
+              echo"<tr>";
+            }
+            echo"<td>" .$dato_usuario['usu_alias'] ."</td>";
+            echo"<td>" .$dato_usuario['usu_nombre']."</td>";  
+            echo"<td>".$dato_usuario['usu_apellido']."</td>";
+            echo"<td>" .$dato_usuario['usu_email'] ."</td>";
+            echo"<td>" .$dato_usuario['usu_tipo'] ."</td>";
+            if ($dato_usuario['usu_deshabilitado'] == '0') {
+             echo"<td>Habilitado</td>";
+            }else{
+              echo"<td>Deshabilitado</td>";
+            }
+            
+
+
+            echo"<td><a href='modificar_usuario.php?usu_id=".$dato_usuario['usu_id']."' style='text-decoration:none; font-size:14px; ' >"."<img src='img/modificar.png' width='20px'/>"." </a> | <a href='deshabilitar_usuario.proc.php?usu_id=".$dato_usuario['usu_id']."' style='text-decoration:none; font-size:14px;' >"."<img src='img/delete.png' width='20px'/>"." </a>    </td>";
+            echo "</tr>";
+          
+        }
+      }
 ?>
 
-</div>
+</table>
     </main>
 
     <nav id="left" class="column">
@@ -49,7 +93,7 @@
      echo "<a href='misreservas.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
      echo "<a href='incidencia.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";
      if ($_SESSION['tipo']== 'Administrador'){
-         echo "<a href='administrar.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
+         echo "<a href='administracion.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
       }
 
      } else {

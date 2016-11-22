@@ -45,9 +45,9 @@
                 extract($_REQUEST);
 
                 if ($rec_disponibilidad != "") {
-                  $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ". $rec_disponibilidad."= tbl_recursos.rec_disponibilidad";
+                  $sql = "SELECT * WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ". $rec_disponibilidad."= tbl_recursos.rec_disponibilidad";
                 }else{
-                  $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
+                  $sql = "SELECT * FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
 
                 }
 
@@ -65,19 +65,31 @@
         echo "Tipo: " .$recurso['tip_nombre']."</br>";
 
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
-       if ($recurso['rec_disponibilidad'] == 1){
+       
 
-            echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";
-               
-            echo"</br> <a href='reserva.proc.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar ahora"."</div></a> ";
 
-            echo"</br> <a href='futura_reserva.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Futura Reserva"."</div></a> ";
+       if (($recurso['rec_disponibilidad'] == 1)AND ($recurso['rec_reservado']== 0) ){
+
+
+            echo "</br><span class= 'disponible'> Si esta disponible" ."</span>";   
+            echo"</br> <a href='reserva.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;' > <div class='btn_reserva'>"."Reservar"."</div></a> ";
+
+            
                
             }
         
       
-        else{
+        elseif($recurso['rec_deshabilitado']== 1){
+
+        
             echo "</br> <span class= 'nodisponible'> No esta disponible" ."</span>";
+            echo"<form name="."reservar". "action="."reserva.proc.php" ."class="."login-form".">";
+            echo"<button type:"."button"." disabled >Reservar</button>";
+            echo"</form>";
+          
+        }elseif($recurso['rec_reservado']== 1){
+
+            echo "</br> <span class= 'nodisponible'> Ya está reservado" ."</span>";
             echo"<form name="."reservar". "action="."reserva.proc.php" ."class="."login-form".">";
             echo"<button type:"."button"." disabled >Reservar</button>";
             echo"</form>";
