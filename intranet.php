@@ -42,10 +42,12 @@
 
             <?php
 
+
+
                 extract($_REQUEST);
 
                 if ($rec_disponibilidad != "") {
-                  $sql = "SELECT * WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ". $rec_disponibilidad."= tbl_recursos.rec_disponibilidad";
+                  $sql = "SELECT * FROM tbl_recursos, tbl_tipo_recurso WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id AND ".$rec_disponibilidad." = tbl_recursos.rec_disponibilidad";
                 }else{
                   $sql = "SELECT * FROM tbl_recursos, tbl_tipo_recurso  WHERE tbl_recursos.tip_id = tbl_tipo_recurso.tip_id";
 
@@ -67,7 +69,7 @@
         //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
        
 
-
+//FALTA MODIFICAR ESTE APARTADO PARA QUE DEJE PODER RESERVAR RECURSOS QUE ESTEN LIBRES DESPUES DE LA RESERVA.
        if (($recurso['rec_disponibilidad'] == 1)AND ($recurso['rec_reservado']== 0) ){
 
 

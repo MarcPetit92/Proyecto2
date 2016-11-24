@@ -37,34 +37,53 @@
     <div class="centro">
  <?php
 
-    $sql2 = "SELECT * FROM tbl_reserva, tbl_recursos WHERE ((tbl_reserva.rec_id = tbl_recursos.rec_id AND tbl_reserva.usu_id = $_SESSION['usu_id']) AND (tbl_recursos.rec_reservado = 1)) ";
+    $sql = "SELECT * FROM tbl_reserva, tbl_recursos WHERE ((tbl_reserva.rec_id = tbl_recursos.rec_id AND tbl_reserva.usu_id = ".$_SESSION['usu_id'].") AND (tbl_recursos.rec_reservado = 1) AND (tbl_reserva.res_cerrada = 1) ) ORDER BY  res_fecha_ini AND res_hora_ini DESC";
 
-    $reservas = mysqli_query($conexion, $sql2);  
-    //echo $sql;
-    if(mysqli_num_rows($reservas)>0){
-      //echo "Número de productos: " . mysqli_num_rows($usuarios) . "<br/><br/>";
-      while($reserva = mysqli_fetch_array($reservas)){
-        
-        echo "<div class = 'reserva'> ";
-        $sql3 ="SELECT * FROM tbl_recursos WHERE rec_id =".$reserva['rec_id'] ;
-        $recursos = mysqli_query($conexion, $sql3);
-         if(mysqli_num_rows($recursos)>0){
-           while($recurso = mysqli_fetch_array($recursos)){
-        echo "<b>".$recurso['rec_nombre']  ."</b></br>";
-          }
-        }
-        echo "Fecha: " .$reserva['res_fecha_ini'] ."</br>";
-        echo "Hora: " .$reserva['res_hora_ini']."</br>";
-        //si la disponibilidad es = 1 significa que esta disponible con un if le diremos que si esta disponible
-      
-        echo"</br> <a href="."devolucion.proc.php?res_id=".$reserva['res_id']."&rec_id=".$reserva['rec_id']." style='text-decoration:none; font-size:14px;' > <div class='btn_devolver'>"."Devolver"."</div></a> ";
-        echo "</div>";
-      }
+
+    
+     $fecha_actual = date("Y-m-d");
+     $hora_actual=date("H:i:s", $time);
+
+    $rec_reservado = mysqli_query($conexion, $sql); 
+
+    if(mysqli_num_rows($rec_reservado)>0){
+ 
+           while($recurso = mysqli_fetch_array($rec_reservado)){
+
+            if( ( ($recurso['res_fecha_ini'] >  $fecha_actual ) )  OR ($recurso['res_hora_ini'] > $hora_actual ) ) {
+                
+                  echo "<div class = 'reserva'> ";
+                  echo "<b>".$recurso['rec_nombre']  ."</b></br>";   
+                  echo "Fecha: " .$recurso['res_fecha_ini'] ."</br>";
+                  echo "Hora: " .$recurso['res_hora_ini']."</br>";
+                  echo "Fecha: " .$recurso['res_fecha_fin'] ."</br>";
+                  echo "Hora: " .$recurso['res_hora_fin']."</br>";
+                  if($recurso['rec_reservado'] == '1'){ 
+                    echo "Reservado: si </br>";
+                  }else{ 
+                    echo "Reservado: no </br>";
+                  }
+                  
+                  echo"</div>";
+            }else{
+
+                $sql = "UPDATE tbl_recursos SET rec_reservado = '0'  where rec_id = ".$recurso['rec_id'];
+                $sql2 = "UPDATE tbl_reserva SET res_cerrada = '0'  where rec_id = ".$recurso['rec_id'];
+
+                $actualizar = mysqli_query($conexion, $sql);
+                  $actualizar2 = mysqli_query($conexion, $sql2);
+
+            }
+
+                 
+                  
+         }
+                
+    }else{
+            echo "<br><span style='color:white;font-family:Roboto;font-size:20px;'>No tienes ninguna reserva...</span>";
+
     }
-    else
-    {
-      echo "<br><span style='color:white;font-family:Roboto;font-size:20px;'>No tienes ninguna reserva...</span>";
-    } 
+   
 
 ?></div>
 <div class="historial">
@@ -73,7 +92,7 @@
 
   <?php
 
-        $sql6 ="SELECT res_fecha_ini, res_hora_ini, res_hora_fin, rec_nombre  FROM `tbl_reserva`, `tbl_recursos` WHERE (".$_SESSION['id']." = tbl_reserva.usu_id )AND (tbl_recursos.rec_id = tbl_reserva.rec_id)";
+        $sql6 ="SELECT res_fecha_ini, res_hora_ini, res_hora_fin, rec_nombre  FROM `tbl_reserva`, `tbl_recursos` WHERE (".$_SESSION['usu_id']." = tbl_reserva.usu_id )AND (tbl_recursos.rec_id = tbl_reserva.rec_id) ORDER BY  res_fecha_ini DESC";
 
         
         $historial = mysqli_query($conexion, $sql6);  
@@ -119,7 +138,7 @@
      echo "<a href='misreservas.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
      echo "<a href='incidencia.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";
      if ($_SESSION['tipo']== 'Administrador'){
-         echo "<a href='administrar.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
+         echo "<a href='administracion.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
       }
 
    }

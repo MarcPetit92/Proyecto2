@@ -59,7 +59,7 @@ $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre, rec
         $foto='img/'. $recurso['rec_foto'];
         echo "<img src=".$foto." width='200' height='150'/></br>";
         echo "Tipo: " .$recurso['tip_nombre']."</br>";
-        echo"</br> <a href='deshabilitar_recursos.proc.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;'  > <div class='btn_devolver'>"."Volver a habilitar"."</div></a> ";
+        echo"</br> <a href='habilitar_recursos.proc.php?rec_id=".$recurso['rec_id']."' style= 'text-decoration:none; font-size:14px;'  > <div class='btn_devolver'>"."Volver a habilitar"."</div></a> ";
         echo "</div>";
 
       }
@@ -77,7 +77,7 @@ $sql = "SELECT rec_id, rec_nombre, rec_foto, rec_disponibilidad, tip_nombre, rec
      echo "<a href='misreservas.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:52px;width:180px;'><div class='navegacion'>Mis reservas</div></a>";
      echo "<a href='incidencia.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:104px;width:180px;'><div class='navegacion'>Incidencias</div></a>";
      if ($_SESSION['tipo']== 'Administrador'){
-         echo "<a href='administrar.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
+         echo "<a href='administracion.php' style= 'text-decoration:none; font-size:14px;position: fixed;margin-top:156px;width:180px;'><div class='navegacion'>Administrar</div></a>";
       }
 
      } else {

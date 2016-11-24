@@ -257,3 +257,35 @@ body {
       color: white;
     }
 
+.modificar_usuarios{
+width: 25%;
+
+
+}
+
+.check {
+    height: 10px;
+    width: 10px;
+    background: url(../images/form_checkbox.png) no-repeat;
+    cursor: pointer;
+    float: left;
+    
+}
+ 
+.check:checked {
+    background-position: 0px -20px;
+}
+
+input [type="checkbox"]  {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+} 
+
+input[type="checkbox"]{
+        background-color: red;
+        border: 2px solid blue;
+        color: yellow;
+        height:20px;
+        width:20px;
+    }

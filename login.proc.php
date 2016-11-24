@@ -14,18 +14,21 @@
 	if(mysqli_num_rows($resultado)==1){
 		//extraemos los datos de ese usuario para poder coger el nivel de acceso
 		$datos_usuario=mysqli_fetch_array($resultado);
-
+		if($datos_usuario['usu_deshabilitado']==0){
 		//creamos la variable de sesión alias
-		$_SESSION['id']=$datos_usuario['usu_id'];
+		$_SESSION['usu_id']=$datos_usuario['usu_id'];
 		$_SESSION['alias']=$_REQUEST['alias'];
 		$_SESSION['nombre']=$datos_usuario['usu_nombre'];
 		$_SESSION['apellido']=$datos_usuario['usu_apellido'];
 		$_SESSION['tipo']=$datos_usuario['usu_tipo'];
 
-		$_SESSION['fecha_actual'] = date("Y-m-d");
-		$_SESSION['hora_actual'] = date("H:i:s", $time);
+		
 		//redirigimos a la página principal
 		header("location: index_intranet.php");
+	}else{
+		$_SESSION['error']="El usuario está deshabilitado";
+		header("location: index.php");
+	}
 	} else {
 		//como no se ha encontrado usuario y contraseña, mandamos a la página index.php un mensaje de error
 		$_SESSION['error']="Usuario o contraseña incorrectos";
